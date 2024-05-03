@@ -1,0 +1,14 @@
+<div class="upperPart">
+    <!-- <app-login></app-login> -->
+
+            <div class="datatable" *ngFor="let user of userList">
+                <label>{{user.username}}</label>
+                <app-user-task [username]="user.username"></app-user-task>
+                <br><br>
+            </div>
+            <div class="login">
+                <app-login></app-login>
+            </div>
+    
+</div>
+

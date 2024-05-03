@@ -1,0 +1,17 @@
+.container-main{
+    display: grid;
+    grid-template-columns: 8fr 4fr;
+    width: 100%;
+}
+table{
+    border: 1px solid #ddd;
+
+}
+th, td {
+    border: 1px solid #ddd ;
+    padding: 10px;
+}
+.column-button{
+    
+    display: grid;
+}

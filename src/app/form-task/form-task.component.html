@@ -1,0 +1,13 @@
+<form [formGroup]="taskForm">
+    <label>Task Subject</label>
+    <input type="text" formControlName="taskSubject" /><br><br>
+    <label>Task Description</label>
+    <input type="text" formControlName="taskDescription" /><br><br>
+    <label>Assignee</label>
+    <select id="Assignee" formControlName="taskAssigned" required>
+        <option *ngFor="let user of userList" value="user">{{user}}</option>
+    </select><br><br>
+    <button (click)="cancelEvent()" >Cancel</button>
+    <button (click)="reset()">Reset</button>
+    <button (click)="createNewTask()" >Create</button>
+</form>

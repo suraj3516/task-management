@@ -1,0 +1,23 @@
+[
+    {
+        "id" : 1,
+        "username" : "manager@abc.com",
+        "password" : "123",
+        "rememberMe" : true,
+        "profile" : "manager"
+    },
+    {
+        "id" : 2,
+        "username" : "member@abc.com",
+        "password" : "123",
+        "rememberMe" : true,
+        "profile" : "member"
+    },
+    {
+        "id" : 3,
+        "username" : "member2@abc.com",
+        "password" : "123",
+        "rememberMe" : true,
+        "profile" : "member"
+    }
+]

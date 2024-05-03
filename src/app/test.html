@@ -1,0 +1,25 @@
+<div class="form">
+    <form [formGroup]="reactiveForm">
+        <div class="form-group">
+            <label>Task Subject</label>
+            <input type="text" formControlName="taskSubject" required>
+        </div>
+        <div class="form-group">
+            <label>Task Description</label>
+            <textarea formControlName="taskDescription" required>
+        </div>
+        <div class="form-group">
+            <label >Assignee</label>
+            <select id="Assignee" formControlName="taskAssigned" required>
+                <option *ngFor = "let user of userData" value="user">{{user}}</option>
+            </select>
+            <div *ngIf="form.get('Assignee').errors">
+                <small class="text-danger"> Assignee is reuired</small>
+            </div>
+        </div>
+        <div>    
+            <button type="button" onclick="createNewTask()">Create</button>
+            <button type="button" onclick="cancel()">Cancel</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,19 @@
+.upperPart{
+    display: grid;
+    //grid-template-columns: 8fr 4fr;
+    width: 100%;
+}
+label{
+    border: 1px solid #ddd;
+    
+    
+}
+.datatable{
+    border: 1px solid #ddd;
+    display: grid;
+    grid-template-columns: 8fr;
+}
+.login{
+    display: grid;
+    grid-template-columns:  4fr;
+}

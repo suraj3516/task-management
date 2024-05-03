@@ -1,0 +1,17 @@
+<!-- <h1> Template Form</h1>
+<input type="text" ngModel="templateForm.username" name="username"/><br/>
+<input type="password" ngModel="templateForm.password" name="password"/><br/>
+<input type="checkbox" ngModel="templateForm.rememberMe" name="remeberme"/>
+<label>Remeber Me</label><br/>
+<button type="button" (click)="submitTemplate()">Login (Template-Driven)</button>
+<br/><br/> -->
+<h1> Reactive Form</h1>
+<form class="" [formGroup]="reactiveForm">
+    <input type="text" pInputText formControlName="username"/><br/><br/>
+    <input type="password" pInputText formControlName="password"/><br/><br/>
+    <p-checkbox formControlName="rememberMe" ></p-checkbox>
+    <label for="ny">Remember Me</label><br/><br/>
+    <p-button label="Login" (click)="submitReactive()"></p-button>
+    
+</form>
+

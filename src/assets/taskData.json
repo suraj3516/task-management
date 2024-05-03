@@ -1,0 +1,38 @@
+[
+    {
+        "id" : 1,
+        "taskSubject" : "Create Method",
+        "taskDescription" : "Create a method in the main file.",
+        "status" : "To-Do",
+        "dateCreated" : "05-01-2024",
+        "taskOwner" : "manager",
+        "taskAssigned" : "member@abc.com"
+    },
+    {
+        "id" : 2,
+        "taskSubject" : "Create file",
+        "taskDescription" : "Create a file in the main folder.",
+        "status" : "To-Do",
+        "dateCreated" : "05-01-2024",
+        "taskOwner" : "manager",
+        "taskAssigned" : "member@abc.com"
+    },
+    {
+        "id" : 3,
+        "taskSubject" : "Create test case",
+        "taskDescription" : "Create a test case in the main file.",
+        "status" : "To-Do",
+        "dateCreated" : "05-01-2024",
+        "taskOwner" : "manager",
+        "taskAssigned" : "member2@abc.com"
+    },
+    {
+        "id" : 4,
+        "taskSubject" : "Create csv",
+        "taskDescription" : "Create a csv file in the main folder.",
+        "status" : "To-Do",
+        "dateCreated" : "05-01-2024",
+        "taskOwner" : "manager",
+        "taskAssigned" : "member3@abc.com"
+    }
+]
