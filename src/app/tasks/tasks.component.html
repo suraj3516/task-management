@@ -1,9 +1,8 @@
 <div class="container">
   
-    <h2>Angular Display Data from Json File Example</h2>
     <div class="container-main">
-      <div class="column-table">
-        <table class="table table-striped">
+      <div *ngIf="usertasks"   class="column-table">
+        <table  class="table table-striped">
           <thead>
               <tr>
                 <th>Id</th>
@@ -15,18 +14,21 @@
           <tbody>
             <tr *ngFor="let user of usertasks">
               <td>{{ user.id }}</td>
-              <td>{{ user.taskSubject }}</td>
-              <td>{{ user.taskDescription }}</td>
+              <td>{{ user.subject }}</td>
+              <td>{{ user.description }}</td>
               <td>{{ user.status }}</td>
             </tr>
           </tbody>
         </table>
       </div>
     <div class="column-button" *ngIf="isManager">
-      <button type="button" *ngIf="!showFormPopup" (click)="createTask()">Create Task</button>
+      <p-button type="button" *ngIf="!showFormPopup" (click)="createTask()" label="Create Task"/> 
       <app-form-task *ngIf="showFormPopup" (showFormPopup) = "showFormPopup = false"></app-form-task>
-    </div>
+      <!-- <p-button (click)="showForm()" label="Create task" />
+      <app-form-dialog (visible) = "visible"></app-form-dialog> -->
+          </div>
   </div>
   
 </div>
-  
+
+

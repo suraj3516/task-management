@@ -1,13 +1,16 @@
 <form [formGroup]="taskForm">
-    <label>Task Subject</label>
-    <input type="text" formControlName="taskSubject" /><br><br>
-    <label>Task Description</label>
-    <input type="text" formControlName="taskDescription" /><br><br>
-    <label>Assignee</label>
-    <select id="Assignee" formControlName="taskAssigned" required>
+    <label class="block text-900 font-medium mb-2">Task Subject</label>
+    <input pInputText type="text" formControlName="taskSubject" /><br><br>
+    <label class="block text-900 font-medium mb-2">Task Description</label>
+    <input pInputText type="text" formControlName="taskDescription" /><br><br>
+    <label class="block text-900 font-medium mb-2">Assignee</label>
+    <select  id="Assignee" formControlName="taskAssigned" required>
+        <option >Select</option>
         <option *ngFor="let user of userList" value="user">{{user}}</option>
     </select><br><br>
-    <button (click)="cancelEvent()" >Cancel</button>
-    <button (click)="reset()">Reset</button>
-    <button (click)="createNewTask()" >Create</button>
+    <div class="formButton">
+    <p-button (click)="cancelEvent()" size="small" >Cancel</p-button>
+    <p-button (click)="reset()" size="small">Reset</p-button>
+    <p-button (click)="createNewTask()" size="small">Create</p-button>
+    </div>
 </form>

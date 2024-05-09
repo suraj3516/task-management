@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ButtonModule } from 'primeng/button';
-import {writeJsonFile} from 'write-json-file';
+import { DataServiceService } from '../data-service.service';
 
 
 
@@ -21,21 +20,28 @@ interface Login{
   standalone: true,
   imports: [CheckboxModule, 
     CommonModule, FormsModule, 
-    ReactiveFormsModule, HttpClientModule, 
+    ReactiveFormsModule, 
     RouterModule, InputTextModule, ButtonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  providers: [DataServiceService]
 })
 export class LoginComponent implements OnInit{
-  userInfo: any[] = [];
+  @Output() isLoggedIn = new EventEmitter<boolean>();
+  userList: any[] = [];
   userJsonData : any[] = [];
   router: Router = new Router;
-  constructor(private http: HttpClient){}
-  //constructor(private router: Router){}
+  constructor(private dataService : DataServiceService){}
   ngOnInit(): void {
-    
+    this.isLoggedIn.emit();
+    this.dataService.getUser();
+    this.dataService.userList$.subscribe(data=>{this.assignUserList(data);});
+    console.log('user List - ',this.userList);
+    //localStorage.clear();
   }
-  
+  assignUserList(data : any){
+    this.userList = data;
+  }
   //Template Driven Form
   // templateForm: Login ={
   //   username: '',
@@ -56,20 +62,31 @@ export class LoginComponent implements OnInit{
     console.log(this.reactiveForm);
     if(this.reactiveForm.status == "VALID")
       {
-        this.fetchUserData();
-        console.log(this.userInfo);
-        console.log("user data return - ",this.userInfo.length);
-        
-        let user  = {
-          id : this.userInfo.length + 1,
+        console.log(this.userList);
+        console.log("user data return - ",this.userList);
+        let userInput  = {
           username: this.reactiveForm.value.username,
           password : this.reactiveForm.value.password,
           rememberMe: this.reactiveForm.value.rememberMe
         };
+        for(const user in this.userList){
+          if(user.toString() == 'items'){
+            console.log('item found - ',this.userList[user]);
+            for(let u of this.userList[user]){
+              console.log('username fetched - ',u.email);
+              if(u.email == userInput.username ){
+                localStorage.setItem("username",u.email);
+                localStorage.setItem("profile",u.profile);
+                //this.isLoggedIn.emit();
+                this.goToTask(u.email);
+              }
+            }
+          }
+          
+        }
+        console.log('usernme or password not matched');
         
-        this.appendUserData(user);
-        localStorage.setItem("username",user.username);
-        this.goToTask(user.username);
+        
       }
     
   }
@@ -84,22 +101,8 @@ export class LoginComponent implements OnInit{
     }
     
   }
-  fetchUserData(){
-    const url : string = 'assets/userData.json';
-    this.http.get<any[]>(url).subscribe((response)=>{this.userInfo=response});
-  }
+  
 
-  appendUserData(newData : any)
-  {
-    this.userJsonData = this.userInfo;
-    this.userJsonData.push(newData);
-    this.writeUserData();
-  }
-  writeUserData(){
-    //writeJsonFile('assets/userData.json',this.userJsonData);
-    this.http.put('assets/userData.json',this.userJsonData).subscribe({next: (response)=>{
-      console.log('user written successfully', response);
-    },error: error=>{console.log('Error writing json',error);}
-    });
-  }
+  
+  
 }

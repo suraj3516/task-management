@@ -1,9 +1,17 @@
 <div class="header">
-  <header>Header</header>
+  <h1>TM</h1>
+  <h2>Task Management</h2>
+  <a routerLink="/dashboard">Dashboard</a>
+  <a routerLink="/task">Task</a>
+  <a *ngIf="isLoggedIn" (isLoggedIn)= "isLoggedIn = false" routerLink="/login">Log Out</a>
 </div>
 <div class="router">
   <router-outlet></router-outlet>
 </div>
 <div class="footer">
-  <footer>Footer</footer>
+  <h1>TM</h1>
+  <p>This is Footer for Task Management App</p>
+  <p> Copyright 2024</p>
+  <a routerLink="/dashboard">Dashboard</a>
+  <a routerLink="/task">Task</a>
 </div>

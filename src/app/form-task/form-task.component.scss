@@ -2,3 +2,9 @@ form{
     margin: 0px 20px 20px 20px;
     padding-left: 50px;
 }
+.formButton{
+    display: grid;
+    grid-template-columns: 4fr 4fr 4fr;
+    width: auto;
+    place-items: center;
+}

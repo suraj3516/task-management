@@ -1,0 +1,25 @@
+.header{
+    display: grid;
+    grid-template-columns: 2fr 7fr 1fr 1fr 1fr;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f8f6f6;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.footer{
+    display: grid;
+    grid-template-columns: 2fr 6fr 2fr 1fr 1fr;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f8f6f6;
+    justify-items: center;
+    align-items: center;
+    margin-top: 20px;
+}
+

@@ -1,19 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormTaskComponent } from '../form-task/form-task.component';
+import { TableModule } from 'primeng/table';
+import { DataServiceService } from '../data-service.service';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormDialogComponent } from '../form-dialog/form-dialog.component';
 
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, FormTaskComponent],
+  imports: [CommonModule, FormTaskComponent, 
+    TableModule, DialogModule, ButtonModule, 
+    InputTextModule,FormDialogComponent],
   templateUrl: './tasks.component.html',
-  styleUrl: './tasks.component.scss'
+  styleUrl: './tasks.component.scss',
+  providers: [DataServiceService]
 })
 export class TasksComponent implements OnInit{
+  visible : boolean = false;
+  //showCreateButton = true;
   showFormPopup = false;
-  showCreateButton = true;
   tasks : any[] = [];
   usertasks : any[] = [];
   newtasks : any[] = [];
@@ -21,82 +30,54 @@ export class TasksComponent implements OnInit{
   userInfo : any[] = [];
   profile : any = '';
   isManager = false;
+  cols = ['Id','Subject','Description','Status'];
+  
 
-  constructor(private http: HttpClient){}
-  ngOnInit() {
+  constructor(private dataService : DataServiceService){}
+  ngOnInit(): void {
+    console.log('task screen initiated');
     this.username = localStorage.getItem("username");
-    this.fetchUserData();
-    this.fetchTasks();    
+    this.profile = localStorage.getItem("profile");
+    
+    this.dataService.getTask();
+    this.dataService.taskList$.subscribe(data=>{this.processData(data)});
+    
+    
+    console.log('task list -  ',this.tasks);   
     console.log("username - ",this.username);
     console.log("profile - ",this.profile);
     if(this.profile=="manager"){
       this.isManager = true;
     }
+    //this.processData(this.tasks);
+    
+  }
+  showForm(){
+    this.visible = true;
+    console.log('visible - ',this.visible);
+    //this.showCreateButton = false;
+  
   }
   createTask(){
     this.showFormPopup = true;
-    this.showCreateButton = false;
-  
   }
-   fetchTasks(){
-    const url : string = 'assets/taskData.json';
-   this.http.get<any[]>(url).subscribe((response)=>{this.processData(response)});
-    console.log(this.tasks);
-    };
     processData(tasks : any){
-      for(let task of tasks)
+      for(let key in tasks)
         {
-          console.log(task.taskAssigned);
-          if(task.taskAssigned == this.username)
-            {
-              this.usertasks.push(task);
-              console.log("task found");
+          if(key.toString() == 'items'){
+            for(const task of tasks[key])
+              {
+                console.log(task);
+                if(task.assignedto == this.username)
+                  {
+                    this.usertasks.push(task);
+                    console.log("task found");
+                  }
+              }
             }
           
         }
         console.log(this.usertasks);
     }
-
-    fetchUserData(){
-      const url : string = 'assets/userData.json';
-      this.http.get<any[]>(url).subscribe((response)=>{this.fetchProfile(response)});
-    }
-    fetchProfile(data: any){
-      for(let user of data){
-        console.log(user);
-        if(this.username == user.username){
-          console.log("profile found - ", user.profile)
-          
-          localStorage.setItem("profile",user.profile);
-          this.profile = user.profile;
-        }
-      }
-      if(this.profile=="manager"){
-        this.isManager = true;
-      }
-    }
-  appendTasks()
-  {
-    let newTask = {
-      id : 3,
-        taskSubject : "Create file",
-        taskDescription : "Create a file in the main folder.",
-        status : "To-Do",
-        dateCreated : "05-01-2024",
-        taskOwner : "manager01",
-        taskAssigned : "member01"
-    }
-    this.newtasks = this.tasks;
-    this.newtasks.push(newTask);
-
-    this.writeTasks();
-  }
-  writeTasks(){
-
-    this.http.put('assets/taskData.json',this.newtasks).subscribe({next: (response)=>{
-      console.log('Tasks written successfully');
-    },error: error=>{console.log('Error writing json',error);}
-    });
-  }
 
 }

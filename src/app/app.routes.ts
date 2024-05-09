@@ -4,11 +4,14 @@ import { TasksComponent } from './tasks/tasks.component';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { authGuardGuard } from './auth-guard.guard';
 
 export const routes: Routes = [
     {
         path : '',
-        component : HomeComponent,
+        redirectTo : '/login',
+        pathMatch : 'full'
+        
     },
     {
         path : 'login',
@@ -16,10 +19,12 @@ export const routes: Routes = [
     },
     {
         path : 'tasks',
+        canActivate : [authGuardGuard],
         component : TasksComponent,
     },
     {
         path : 'dashboard',
+        canActivate : [authGuardGuard],
         component : AdminDashboardComponent,
     }
 ];
