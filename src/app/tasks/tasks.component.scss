@@ -1,7 +1,11 @@
 .container-main{
-    display: grid;
-    grid-template-columns: 8fr 4fr;
-    width: 100%;
+    display: flex;
+    //grid-template-columns: auto;
+    flex-wrap: wrap;
+    //width: 100%;
+    justify-content: center;
+    
+    
 }
 table{
     border: 1px solid #ddd;
@@ -14,4 +18,5 @@ th, td {
 .column-button{
     
     display: grid;
+    place-items: center;
 }

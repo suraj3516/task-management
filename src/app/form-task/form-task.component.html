@@ -1,16 +1,21 @@
 <form [formGroup]="taskForm">
-    <label class="block text-900 font-medium mb-2">Task Subject</label>
+    <label class="block text-900 font-medium mb-2 starlabel" >Task Subject</label>
     <input pInputText type="text" formControlName="taskSubject" /><br><br>
-    <label class="block text-900 font-medium mb-2">Task Description</label>
+    <label class="block text-900 font-medium mb-2 starlabel">Task Description</label>
     <input pInputText type="text" formControlName="taskDescription" /><br><br>
-    <label class="block text-900 font-medium mb-2">Assignee</label>
-    <select  id="Assignee" formControlName="taskAssigned" required>
+    <label class="block text-900 font-medium mb-2 starlabel">Assignee</label>
+    <!-- <select  id="Assignee" formControlName="taskAssigned" required>
         <option >Select</option>
         <option *ngFor="let user of userList" value="user">{{user}}</option>
-    </select><br><br>
-    <div class="formButton">
-    <p-button (click)="cancelEvent()" size="small" >Cancel</p-button>
-    <p-button (click)="reset()" size="small">Reset</p-button>
+    </select> -->
+    <p-dropdown 
+    formControlName="taskAssigned" 
+    [options]="userList"
+    placeholder="Select a Assignee" 
+    [showClear]="true" /><br><br><br><br>
+    <div class="formButton flex justify-content-end gap-2">
+    <p-button (click)="cancelEvent()" severity="secondary" size="small" >Cancel</p-button>
+    <p-button (click)="reset()" severity="secondary" size="small">Reset</p-button>
     <p-button (click)="createNewTask()" size="small">Create</p-button>
     </div>
 </form>

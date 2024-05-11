@@ -23,9 +23,9 @@ interface taskBody{
 })
 export class FormTaskComponent {
  private dataService = inject(DataServiceService);
-  userList : any[] = ['member','member2'];
-  //@Input() showFormPopup : boolean = false;
-  @Output() showFormPopup = new EventEmitter<boolean>();
+  //List : any[] = ['member','member2','member3'];
+  @Input() userList : string[]= [];
+  @Output() showForm = new EventEmitter<boolean>(false);
 taskForm : FormGroup = new FormGroup({
   taskSubject : new FormControl('',Validators.required),
   taskDescription : new FormControl('',Validators.required),
@@ -52,12 +52,12 @@ createNewTask(){
       console.log("Body Created", body);
       this.dataService.createTask(body);
     console.log("Task Created", this.taskForm);
-    this.showFormPopup.emit();
+    this.showForm.emit(false);
     }
   
 }
 cancelEvent(){
   console.log("cancel clicked");
-  this.showFormPopup.emit();
+  this.showForm.emit(false);
 }
 }

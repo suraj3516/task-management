@@ -8,3 +8,7 @@ form{
     width: auto;
     place-items: center;
 }
+.starlabel:after {
+    content:" *";
+    color: red;
+  }

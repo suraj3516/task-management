@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, WritableSignal, signal } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import PocketBase from 'pocketbase';
 import { Environment } from './environment';
@@ -12,6 +12,9 @@ export class DataServiceService {
   public userList$ = this.userList.asObservable();
   private taskList = new BehaviorSubject<any[]>([]);
   public taskList$ = this.taskList.asObservable();
+  // private isLoggedIn = new BehaviorSubject<boolean>(false);
+  // public isLoggedIn$ = this.isLoggedIn.asObservable();
+  public isLoggedIn : WritableSignal<boolean>=signal(false);
   
   constructor(private http : HttpClient) { }
   async getUser(){

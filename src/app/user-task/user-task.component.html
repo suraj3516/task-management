@@ -1,30 +1,32 @@
-<div class="container">
-  
-    <h2>Angular Display Data from Json File Example</h2>
-    <div class="container-main">
-    <div class="column-table">
-    <table class="table table-striped">
-      <thead>
-          <tr>
-            <th>Id</th>
-            <th>Subject</th>
-            <th>Description</th>
-            <th>Status</th>
-          </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of tasks">
-          <td>{{ user.id }}</td>
-          <td>{{ user.taskSubject }}</td>
-          <td>{{ user.taskDescription }}</td>
-          <td>{{ user.status }}</td>
+<div *ngIf="usertasks && usertasks.length > 0">
+<p-table 
+    [value]="usertasks"
+    [paginator]="true"
+    [rows]="5"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]"
+>
+<ng-template pTemplate="caption">
+  <div class="flex align-items-center justify-content-between">
+      {{username}}
+  </div>
+</ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width:25%">Id</th>
+            <th style="width:25%">Subject</th>
+            <th style="width:25%">Description</th>
+            <th style="width:25%">Status</th>
         </tr>
-      </tbody>
-    </table>
-  </div>
-  <!-- <div class="column-button">
-    <button type="button" (click)="updateData()">Update Data</button>
-  </div> -->
+    </ng-template>
+    <ng-template pTemplate="body" let-task>
+        <tr>
+            <td>{{ task.id }}</td>
+            <td>{{ task.subject }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.status }}</td>
+        </tr>
+    </ng-template>
+</p-table>
 </div>
-  </div>
-  
+<div *ngElse style="display: none;"></div>

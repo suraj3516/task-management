@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { authGuardGuard } from './auth-guard.guard';
+import { FormDialogComponent } from './form-dialog/form-dialog.component';
 
 export const routes: Routes = [
     {
@@ -26,6 +27,10 @@ export const routes: Routes = [
         path : 'dashboard',
         canActivate : [authGuardGuard],
         component : AdminDashboardComponent,
+    },
+    {
+        path : 'dialog',
+        component : FormDialogComponent
     }
 ];
 @NgModule({

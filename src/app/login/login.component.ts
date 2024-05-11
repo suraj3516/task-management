@@ -27,13 +27,13 @@ interface Login{
   providers: [DataServiceService]
 })
 export class LoginComponent implements OnInit{
-  @Output() isLoggedIn = new EventEmitter<boolean>();
+  //@Output() isLoggedIn = new EventEmitter<boolean>();
   userList: any[] = [];
   userJsonData : any[] = [];
   router: Router = new Router;
   constructor(private dataService : DataServiceService){}
   ngOnInit(): void {
-    this.isLoggedIn.emit();
+    this.dataService.isLoggedIn.set(false);
     this.dataService.getUser();
     this.dataService.userList$.subscribe(data=>{this.assignUserList(data);});
     console.log('user List - ',this.userList);

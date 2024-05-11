@@ -1,10 +1,12 @@
 <div class="card flex justify-content-center">
     
-    <p-dialog header="Create New Task" [(visible)]="display" [style]="{ width: '25rem' }">
-        <app-form-task></app-form-task>
-        <div class="flex justify-content-end gap-2">
-            <p-button label="Cancel" severity="secondary" (click)="display = false" />
-            <p-button label="Save" (click)="display = false" />
-        </div>
+    <p-dialog 
+    header="Create New Task" 
+    [(visible)]="display" 
+    modal="true" 
+    [style]="{width: '30rem'} "
+    [resizable]="false"
+    [draggable]="true" >
+        <app-form-task (showForm)="closeDialog()" [userList]="usersList"></app-form-task>
     </p-dialog>
 </div>

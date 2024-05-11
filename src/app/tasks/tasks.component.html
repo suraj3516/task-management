@@ -1,34 +1,14 @@
-<div class="container">
-  
-    <div class="container-main">
-      <div *ngIf="usertasks"   class="column-table">
-        <table  class="table table-striped">
-          <thead>
-              <tr>
-                <th>Id</th>
-                <th>Subject</th>
-                <th>Description</th>
-                <th>Status</th>
-              </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let user of usertasks">
-              <td>{{ user.id }}</td>
-              <td>{{ user.subject }}</td>
-              <td>{{ user.description }}</td>
-              <td>{{ user.status }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<div class="container-main">
+  <app-user-task [username]="username"></app-user-task>
+
+
     <div class="column-button" *ngIf="isManager">
-      <p-button type="button" *ngIf="!showFormPopup" (click)="createTask()" label="Create Task"/> 
-      <app-form-task *ngIf="showFormPopup" (showFormPopup) = "showFormPopup = false"></app-form-task>
-      <!-- <p-button (click)="showForm()" label="Create task" />
-      <app-form-dialog (visible) = "visible"></app-form-dialog> -->
+      <p-button type="button" (click)="createTask()" label="Create Task"/> 
+      <!-- <app-form-task *ngIf="showFormPopup" (showForm) = "handleEvent($event)" [userList]="list"></app-form-task> -->
+      <!-- <p-button (click)="showForm()" label="Create task" />-->
+      <app-form-dialog [display] = "showFormPopup" (dialogClosed)="showFormPopup = false" [usersList]="list"></app-form-dialog> 
           </div>
   </div>
   
-</div>
 
 

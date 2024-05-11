@@ -7,6 +7,8 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormDialogComponent } from '../form-dialog/form-dialog.component';
+import { UserTaskComponent } from '../user-task/user-task.component';
+import { AppComponent } from '../app.component';
 
 
 @Component({
@@ -14,15 +16,15 @@ import { FormDialogComponent } from '../form-dialog/form-dialog.component';
   standalone: true,
   imports: [CommonModule, FormTaskComponent, 
     TableModule, DialogModule, ButtonModule, 
-    InputTextModule,FormDialogComponent],
+    InputTextModule,FormDialogComponent, UserTaskComponent],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.scss',
   providers: [DataServiceService]
 })
 export class TasksComponent implements OnInit{
-  visible : boolean = false;
+  //visible : boolean = false;
   //showCreateButton = true;
-  showFormPopup = false;
+  showFormPopup :boolean = false;
   tasks : any[] = [];
   usertasks : any[] = [];
   newtasks : any[] = [];
@@ -32,9 +34,12 @@ export class TasksComponent implements OnInit{
   isManager = false;
   cols = ['Id','Subject','Description','Status'];
   
-
+  list : string[]= ['memeber','member2','member3'];
   constructor(private dataService : DataServiceService){}
   ngOnInit(): void {
+    this.dataService.isLoggedIn.set(true);
+    
+    console.log('logout - ',this.dataService.isLoggedIn());
     console.log('task screen initiated');
     this.username = localStorage.getItem("username");
     this.profile = localStorage.getItem("profile");
@@ -52,9 +57,13 @@ export class TasksComponent implements OnInit{
     //this.processData(this.tasks);
     
   }
+  handleEvent(event : boolean){
+    this.showFormPopup = event;
+  }
   showForm(){
-    this.visible = true;
-    console.log('visible - ',this.visible);
+    //this.visible = true;
+    this.showFormPopup = true;
+    console.log('visible - ',this.showFormPopup);
     //this.showCreateButton = false;
   
   }

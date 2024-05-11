@@ -5,6 +5,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { response } from 'express';
 import { CommonModule } from '@angular/common';
 import { UserTaskComponent } from '../user-task/user-task.component';
+import { DataServiceService } from '../data-service.service';
 
 
 @Component({
@@ -14,12 +15,14 @@ import { UserTaskComponent } from '../user-task/user-task.component';
     HttpClientModule, CommonModule, 
     UserTaskComponent],
   templateUrl: './admin-dashboard.component.html',
-  styleUrl: './admin-dashboard.component.scss'
+  styleUrl: './admin-dashboard.component.scss',
+    providers: [DataServiceService]
 })
 export class AdminDashboardComponent implements OnInit{
   userList : any[] = [];
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient, private dataService : DataServiceService){}
   ngOnInit(): void {
+    //this.dataService.isLoggedIn.update(value => value = true);
     this.fetchUserList();
   }
 
