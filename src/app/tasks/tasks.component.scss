@@ -7,6 +7,30 @@
     
     
 }
+p-card{
+    width:max-content;
+}
+label{
+    font-weight: bold;
+}
+.kanban{
+    display: grid;
+    grid-template-columns: 4fr 4fr 4fr;
+    //flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    margin: 20px;
+    border: 1px solid;
+    border-radius: 10px;
+    background-color:rgb(252, 249, 238);
+    padding: 20px;
+    width: 100%;
+}
+:host ::ng-deep {
+    [pDraggable] {
+        cursor: move;
+    }
+}
 table{
     border: 1px solid #ddd;
 

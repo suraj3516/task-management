@@ -1,10 +1,14 @@
+
 <div class="header">
+  
   <h1>TM</h1>
   <h2>Task Management</h2>
   <a routerLink="/dashboard">Dashboard</a>
   <a routerLink="/tasks">Task</a>
-  <a *ngIf="showLink"  routerLink="/login">Log Out</a>
+  <a *ngIf="isLoggedIn$" (isLoggedIn)="isLoggedIn$ = true"  routerLink="/login">Log Out</a>
+
 </div>
+
 <div class="router">
   <router-outlet></router-outlet>
 </div>

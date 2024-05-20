@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, WritableSignal, signal } from '@angular/core';
+import { Injectable, effect, signal } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import PocketBase from 'pocketbase';
 import { Environment } from './environment';
+import { AppComponent } from './app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,13 @@ export class DataServiceService {
   public userList$ = this.userList.asObservable();
   private taskList = new BehaviorSubject<any[]>([]);
   public taskList$ = this.taskList.asObservable();
-  // private isLoggedIn = new BehaviorSubject<boolean>(false);
-  // public isLoggedIn$ = this.isLoggedIn.asObservable();
-  public isLoggedIn : WritableSignal<boolean>=signal(false);
+  private isLoggedIn = new BehaviorSubject(false);
+  isLoggedIn$ = this.isLoggedIn.asObservable();
+  //isLoggedIn = signal(false);
   
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient) 
+  { 
+  }
   async getUser(){
     const url = Environment.baseUrl + 'api/collections/users/records';
     console.log(url);
@@ -43,5 +46,8 @@ export class DataServiceService {
     this.http.post<any[]>(url,body).pipe(map(data => {return data;})
   ).subscribe(data => {this.taskList.next(data);});
   console.log('task list DS - ',this.taskList$);
+  }
+  setLoggedIn(status : boolean){
+    this.isLoggedIn.next(status);
   }
 }

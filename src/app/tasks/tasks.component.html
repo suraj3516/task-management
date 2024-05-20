@@ -9,6 +9,92 @@
       <app-form-dialog [display] = "showFormPopup" (dialogClosed)="showFormPopup = false" [usersList]="list"></app-form-dialog> 
           </div>
   </div>
+
+<div class="kanban">
+  <div class="p-2 border-1 surface-border border-round w-15rem" pDroppable (onDrop)="drop('to-do')">
+  
+  <p class="text-center surface-border border-bottom-1">
+    TO-DO
+</p>
+    <ul class="list-none flex flex-column gap-2 p-0 m-0">
+        <li 
+            *ngFor="let todotask of toDoTaskList"
+            class="p-2 border-round shadow-1" 
+            pDraggable 
+            
+            (onDragStart)="dragStart(todotask,'to-do')" 
+            (onDragEnd)="dragEnd()">
+            <p-card>
+              <label>Subject:</label>
+                {{todotask.subject}}<br>
+              <label>Status:</label>
+                {{todotask.status}}
+              </p-card>
+        </li>
+      </ul>
+      
+    
+  </div>
+  <div class="p-2 border-1 surface-border border-round w-15rem" pDroppable (onDrop)="drop('working')">
+  
+  <!-- <div class="p-2 border-1 surface-border border-round w-15rem" > -->
+  <p class="text-center surface-border border-bottom-1">
+    Working
+  </p>
+    <ul class="list-none flex flex-column gap-2 p-0 m-0">
+        <li 
+            *ngFor="let inProgressTask of inProgressTaskList"
+            class="p-2 border-round shadow-1" 
+            pDraggable 
+            
+            (onDragStart)="dragStart(inProgressTask,'working')" 
+            (onDragEnd)="dragEnd()">
+            <p-card>
+              <label>Subject:</label>
+                {{inProgressTask.subject}}<br>
+                <label>Status:</label>
+                {{inProgressTask.status}}
+              </p-card>
+        </li>
+    </ul>
+   
+  </div>
+  <div class="p-2 border-1 surface-border border-round w-15rem" pDroppable (onDrop)="drop('done')">
+  <!-- <div class="p-2 border-1 surface-border border-round w-15rem"> -->
+  <p class="text-center surface-border border-bottom-1">
+    Completed
+</p>
+    <ul class="list-none flex flex-column gap-2 p-0 m-0" >
+        <li 
+            *ngFor="let doneTask of doneTaskList"
+            class="p-2 border-round shadow-1" 
+            pDraggable 
+            
+            (onDragStart)="dragStart(doneTask,'done')" 
+            (onDragEnd)="dragEnd()">
+            <p-card>
+              <label>Subject:</label>
+                {{doneTask.subject}}<br>
+                <label>Status:</label>
+                {{doneTask.status}}
+            </p-card>
+        </li>
+    </ul>
+</div>
+<!-- <div class="p-2 border-1 surface-border border-round w-15rem" pDroppable (onDrop)="drop()">
+    <p class="text-center surface-border border-bottom-1">
+        Drop Zone
+    </p>
+    <ul class="list-none flex flex-column gap-2 p-0 m-0" *ngIf="selectedTasks" >
+        <li *ngFor="let task of selectedTasks" class="p-2 border-round shadow-1">
+          <p-card>  
+          {{task.subject}}
+          {{task.status}}
+        </p-card>
+        </li>
+    </ul>
+</div> -->
+
   
 
 

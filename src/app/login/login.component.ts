@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
@@ -27,13 +27,13 @@ interface Login{
   providers: [DataServiceService]
 })
 export class LoginComponent implements OnInit{
-  //@Output() isLoggedIn = new EventEmitter<boolean>();
+  @Output() isLoggedIn = new EventEmitter<boolean>(false);
   userList: any[] = [];
   userJsonData : any[] = [];
   router: Router = new Router;
-  constructor(private dataService : DataServiceService){}
+  constructor(private dataService : DataServiceService, private cdRef: ChangeDetectorRef){}
   ngOnInit(): void {
-    this.dataService.isLoggedIn.set(false);
+    this.cdRef.detectChanges();
     this.dataService.getUser();
     this.dataService.userList$.subscribe(data=>{this.assignUserList(data);});
     console.log('user List - ',this.userList);
@@ -77,8 +77,12 @@ export class LoginComponent implements OnInit{
               if(u.email == userInput.username ){
                 localStorage.setItem("username",u.email);
                 localStorage.setItem("profile",u.profile);
-                //this.isLoggedIn.emit();
+                this.isLoggedIn.emit(true);
+                this.dataService.setLoggedIn(true);
+                this.cdRef.detectChanges();
+                console.log('logout - ',this.isLoggedIn);
                 this.goToTask(u.email);
+                
               }
             }
           }
